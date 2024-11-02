@@ -14,7 +14,7 @@ Base = declarative_base()
 
 def init_db():
     # import auth schema
-    from server.api.schemas.auth import User
+    from server.api.schemas.auth import User,Oauth
     from server.api.schemas.messages import Message, Chat
 
     Base.metadata.create_all(bind=engine)

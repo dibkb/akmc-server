@@ -3,3 +3,4 @@ class TableClassNames(str, Enum):
     User = "User"
     Message = "Message"
     Chat = "Chat"
+    Oauth = "Oauth"

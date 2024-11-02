@@ -4,19 +4,19 @@ from fastapi import HTTPException, status, Depends
 from jose import jwt
 
 from server.api.models.auth import TokenData
-from server.api.schemas.auth import User
+from server.api.schemas.auth import User,Oauth
 from server.config import jwt_settings
 def get_user(db: Session, email: str) -> User:
     """Retrieve a user by their username."""
-    existing_user = db.query(User).filter(User.email == email).first()
+    existing_user = db.query(User).filter(User.email == email).first() or db.query(Oauth).filter(Oauth.email == email).first()
 
     # If the user is found, return it
     if existing_user:
         return existing_user
 
     # If the user is not found, raise an exception
-    if existing_user is None:
-        raise HTTPException(status_code=400, detail="Username does not exist")
+    if not existing_user:
+        raise HTTPException(status_code=400, detail="Email does not exist")
     
 
 

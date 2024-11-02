@@ -9,19 +9,21 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     email = Column(String(100), unique=True, nullable=False)
-    refresh_token = Column(String(255),nullable=True)
-    password_hash = Column(String(128),nullable=False)
+    password_hash = Column(String(128),nullable=True)
     profilePic = Column(String,nullable=True)
 
     chats = relationship(TableClassNames.Chat.value, back_populates="user")
     messages = relationship(TableClassNames.Message.value, back_populates="user")
 
+class Oauth(Base):
+    __tablename__ = "oauth"
 
-    def set_password(self, password: str):
-        self.password_hash = bcrypt.hash(password)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    email = Column(String(100), unique=True, nullable=False)
+    profilePic = Column(String,nullable=True)
 
-    # Method to verify password
-    def verify_password(self, password: str):
-        return bcrypt.verify(password, self.password_hash)
+    chats = relationship(TableClassNames.Chat.value, back_populates="oauth")
+    
+    messages = relationship(TableClassNames.Message.value, back_populates="oauth")
 
 
