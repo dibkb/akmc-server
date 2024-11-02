@@ -11,4 +11,11 @@ class Settings(BaseModel):
 
 settings = Settings()
 
-print(settings)
+
+class JWTSettings(BaseModel):
+    SECRET_KEY: str = os.getenv("JWT_SECRET")
+    ALGORITHM: str = os.getenv("JWT_ALGORITHM")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("JWT_EXPIRE"))
+
+
+jwt_settings = JWTSettings()

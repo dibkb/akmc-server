@@ -1,14 +1,18 @@
 from fastapi import FastAPI
+from server.api.endpoints import base_router
 import uvicorn
-
+import os
 from server.database.main import init_db
+
+os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
 app = FastAPI()
 
-@app.get("/")
+@app.get("/test")
 async def read_root():
     return {"Hello": "World "}
 
-
+# routers
+app.include_router(base_router)
 init_db()
 if __name__ == "__main__":
     uvicorn.run(
